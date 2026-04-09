@@ -58,7 +58,7 @@ def display_users():
     # hard code a value to the users_list;
     # note that this could have been a result from an SQL query :) 
     #users_list = (('John','Doe','Comedy'),('Jane', 'Doe','Drama'))
-    movie_list = (dbCode.execute_query("SELECT * FROM users"))
+    movie_list = (dbCode.execute_query("SELECT * FROM movie"))
     return render_template('display_users.html', users = movie_list)
 
 
