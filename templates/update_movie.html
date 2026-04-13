@@ -1,0 +1,98 @@
+<!-- VSCode's copilot helped in generating this page-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Update Movie</title>
+    <!-- Bootstrap CSS for styling -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body style="background-color:rgb(129, 167, 199)">
+    <div class="container">
+        <h2 class="mt-5">Update Movie Information</h2>
+        <p class="text-muted">Enter the movie title, and only the fields you want to update.</p>
+
+        <!-- Update Movie Form -->
+        <form action="{{ url_for('update_movie') }}" method="post" class="mb-4">
+            <!-- Movie Title (Required) -->
+            <div class="form-group">
+                <label for="title"><strong>Movie Title (Required):</strong></label>
+                <input type="text" class="form-control" id="title" name="title"
+                       placeholder="Enter movie title to update..." required>
+            </div>
+
+            <!-- Optional Fields -->
+            <h5 class="mt-4">Optional Fields</h5>
+            <hr>
+
+            <!-- Overview -->
+            <div class="form-group">
+                <label for="overview">Overview:</label>
+                <textarea class="form-control" id="overview" name="overview"
+                          rows="3" placeholder="Leave blank to keep current overview"></textarea>
+            </div>
+
+            <!-- Popularity -->
+            <div class="form-group">
+                <label for="popularity">Popularity:</label>
+                <input type="number" class="form-control" id="popularity" name="popularity"
+                       step="0.01" placeholder="Leave blank to keep current value">
+            </div>
+
+            <!-- Release Date -->
+            <div class="form-group">
+                <label for="release_date">Release Date:</label>
+                <input type="date" class="form-control" id="release_date" name="release_date"
+                       placeholder="Leave blank to keep current date">
+            </div>
+
+            <!-- Revenue -->
+            <div class="form-group">
+                <label for="revenue">Revenue:</label>
+                <input type="number" class="form-control" id="revenue" name="revenue"
+                       placeholder="Leave blank to keep current value">
+            </div>
+
+            <!-- Runtime -->
+            <div class="form-group">
+                <label for="runtime">Runtime (minutes):</label>
+                <input type="number" class="form-control" id="runtime" name="runtime"
+                       placeholder="Leave blank to keep current value">
+            </div>
+
+            <!-- Budget -->
+            <div class="form-group">
+                <label for="budget">Budget:</label>
+                <input type="number" class="form-control" id="budget" name="budget"
+                       placeholder="Leave blank to keep current value">
+            </div>
+
+            <!-- Vote Average -->
+            <div class="form-group">
+                <label for="vote_average">Vote Average:</label>
+                <input type="number" class="form-control" id="vote_average" name="vote_average"
+                       step="0.1" min="0" max="10" placeholder="Leave blank to keep current value">
+            </div>
+
+            <!-- Vote Count -->
+            <div class="form-group">
+                <label for="vote_count">Vote Count:</label>
+                <input type="number" class="form-control" id="vote_count" name="vote_count"
+                       placeholder="Leave blank to keep current value">
+            </div>
+
+            <!-- Movie Status -->
+            <div class="form-group">
+                <label for="movie_status">Movie Status:</label>
+                <input type="text" class="form-control" id="movie_status" name="movie_status"
+                       placeholder="e.g., Released, Post Production (leave blank to keep current)">
+            </div>
+
+            <!-- Buttons -->
+            <div class="form-group mt-4">
+                <button type="submit" class="btn btn-success">Update Movie</button>
+                <a href="/" class="btn btn-secondary ml-2">Back to Home</a>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

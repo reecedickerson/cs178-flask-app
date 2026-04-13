@@ -41,3 +41,13 @@ def execute_delete(query, args=()):
     conn.commit()
     cur.close()
     conn.close()
+
+# Function added with help from VSCode's copilot
+def execute_update(query, args=()):
+    """Executes an UPDATE query and commits the changes."""
+    conn = get_conn()
+    cur = conn.cursor()
+    cur.execute(query, args)
+    conn.commit()
+    cur.close()
+    conn.close()

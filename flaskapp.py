@@ -44,7 +44,7 @@ def delete_movie():
         query = "DELETE FROM movie WHERE title = %s"
         dbCode.execute_delete(query, (title))
         
-        flash('Movie deleted successfully! Hoorah!', 'warning') 
+        flash('Sacrifice attempted! Check to see if it worked.', 'warning') 
         # Redirect to home page or another page upon successful submission
         return redirect(url_for('home'))
     else:
@@ -56,13 +56,40 @@ def update_movie():
     if request.method == 'POST':
         # Extract form data
         title = request.form['title']
-        new_overview = request.form['new_overview']
         
-        # Process the data (e.g., add it to a database)
-        # For now, let's just print it to the console
-        print("Title to update:", title, "New Overview:", new_overview)
+        # Collect all optional fields that were provided
+        updates = {}
+        if request.form.get('overview'):
+            updates['overview'] = request.form['overview']
+        if request.form.get('popularity'):
+            updates['popularity'] = request.form['popularity']
+        if request.form.get('release_date'):
+            updates['release_date'] = request.form['release_date']
+        if request.form.get('revenue'):
+            updates['revenue'] = request.form['revenue']
+        if request.form.get('runtime'):
+            updates['runtime'] = request.form['runtime']
+        if request.form.get('budget'):
+            updates['budget'] = request.form['budget']
+        if request.form.get('vote_average'):
+            updates['vote_average'] = request.form['vote_average']
+        if request.form.get('vote_count'):
+            updates['vote_count'] = request.form['vote_count']
+        if request.form.get('movie_status'):
+            updates['movie_status'] = request.form['movie_status']
         
-        flash('Movie updated successfully!', 'info') 
+        # Only update if at least one field was provided
+        if updates:
+            # Build dynamic UPDATE query
+            set_clause = ', '.join([f"{key} = %s" for key in updates.keys()])
+            query = f"UPDATE movie SET {set_clause} WHERE title = %s"
+            args = list(updates.values()) + [title]
+            
+            dbCode.execute_update(query, tuple(args))
+            flash('Movie updated successfully!', 'info')
+        else:
+            flash('Please provide at least one field to update.', 'warning')
+        
         # Redirect to home page or another page upon successful submission
         return redirect(url_for('home'))
     else:
