@@ -24,7 +24,7 @@ def add_movie():
         title = request.form['title']
         overview = request.form['overview']
         
-        # lines added with help of VSCode's copilot
+        # lines added with help of VSCode's GitHub copilot
         query = "INSERT INTO movie (title, overview) VALUES (%s, %s)"
         dbCode.execute_insert(query, (title, overview))
         
@@ -61,7 +61,7 @@ def delete_movie():
         # Render the form page if the request method is GET
         return render_template('delete_movie.html')
     
-# Function generated with help from VSCode's copilot
+# Function generated with help from VSCode's GitHubcopilot
 @app.route('/update-movie', methods=['GET', 'POST'])
 def update_movie():
     if request.method == 'POST':
@@ -110,7 +110,7 @@ def update_movie():
             
             dbCode.execute_update(query, tuple(args))
         
-        flash('Movie updated successfully!', 'info')
+        flash('Erasure attempted. Check to see if it is still there!', 'caution')
         # Redirect to home page or another page upon successful submission
         return redirect(url_for('home'))
     else:
@@ -127,7 +127,7 @@ def display_movies():
         movie_list = []
     else:
         # Base query with joins for genres and languages
-        # Display generated with help from VSCode's copilot
+        # Display generated with help from VSCode's GitHub copilot
         query = """
         SELECT m.*,
                GROUP_CONCAT(DISTINCT g.genre_name ORDER BY g.genre_name) as genres,

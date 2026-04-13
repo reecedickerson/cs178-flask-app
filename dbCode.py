@@ -1,5 +1,5 @@
 # dbCode.py
-# Author: Your Name
+# Author: Reece Dickerson
 # Helper functions for database connection and queries
 
 import pymysql
@@ -23,7 +23,7 @@ def execute_query(query, args=()):
     cur.close()
     return rows
 
-# Function added with help from VSCode's copilot
+# Function added with help from VSCode's GitHub copilot
 def execute_insert(query, args=()):
     """Executes an INSERT query and commits the changes."""
     conn = get_conn()
@@ -42,7 +42,7 @@ def execute_delete(query, args=()):
     cur.close()
     conn.close()
 
-# Function added with help from VSCode's copilot
+# Function added with help from VSCode's GitHub copilot
 def execute_update(query, args=()):
     """Executes an UPDATE query and commits the changes."""
     conn = get_conn()
@@ -52,7 +52,7 @@ def execute_update(query, args=()):
     cur.close()
     conn.close()
 
-# The following functions were added with help from VSCode's copilot to support the update movie functionality in flaskapp.py
+# The following functions were added with help from VSCode's GitHub copilot to support the update movie functionality in flaskapp.py
 def get_movie_id_by_title(title):
     """Gets movie_id by title."""
     query = "SELECT movie_id FROM movie WHERE title = %s"

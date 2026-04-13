@@ -1,4 +1,4 @@
-# [Your Project Name Here]
+# [Movie Database Project]
 
 **CS178: Cloud and Database Systems — Project #1**
 **Author:** [Reece Dickerson]
@@ -9,6 +9,9 @@
 ## Overview
 
 <!-- Describe your project in 2-4 sentences. What does it do? Who is it for? What problem does it solve? -->
+<!-- This project allows the user to access movies held within the Movies database hosted on my EC2 instance.-->
+<!-- In addition to looking up movies, it allows the user to add movies to the database and update their information.-->
+
 
 ---
 
@@ -29,8 +32,12 @@ ProjectOne/
 ├── flaskapp.py          # Main Flask application — routes and app logic
 ├── dbCode.py            # Database helper functions (MySQL connection + queries)
 ├── creds_sample.py      # Sample credentials file (see Credential Setup below)
+├── static/              # Folder housing images
 ├── templates/
 │   ├── home.html        # Landing page
+│   ├── add_movie.html   # Page that allows user to add movie to database
+│   ├── delete_movie.html       # Page that allows user to delete movie from database
+│   ├── update_movie.html       # Page that allows user to update information about movie in database   
 │   ├── [other].html     # Add descriptions for your other templates
 ├── .gitignore           # Excludes creds.py and other sensitive files
 └── README.md
@@ -70,7 +77,7 @@ ProjectOne/
 The app is deployed on an AWS EC2 instance. To view the live version:
 
 ```
-http://[your-ec2-public-ip]:8080
+http://32.192.1.102:8080/
 ```
 
 _(Note: the EC2 instance may not be running after project submission.)_
@@ -98,21 +105,26 @@ db = "your-database-name"
 ### SQL (MySQL on RDS)
 
 <!-- Briefly describe your relational database schema. What tables do you have? What are the key relationships? -->
+<!-- The primary table within the movies database is movie. -->
 
 **Example:**
 
-- `[TableName]` — stores [description]; primary key is `[key]`
-- `[TableName]` — stores [description]; foreign key links to `[other table]`
+- `movie` — stores all the different movies in the database and their information; primary key is `movie_id`
+- `movie_languages` — stores language and movie ids; foreign key links to `movie`
+- `language` — stores the different languages used and their codes; foreign key links to `movie_languages`
 
 The JOIN query used in this project: <!-- describe it in plain English -->
+<!-- I joined genre, to moive_genres, to moive. I also joined language, to movie_languages, to movie-->
+<!-- This allowed for the different functions to access genres and languages-->
 
 ### DynamoDB
 
 <!-- Describe your DynamoDB table. What is the partition key? What attributes does each item have? How does it connect to the rest of the app? -->
 
-- **Table name:** `[your-table-name]`
-- **Partition key:** `[key-name]`
-- **Used for:** [description]
+- **Table name:** `movie`
+- **Partition key:** `movie_id`
+- **Used for:** <!-- Returned the corresponding movie and it's information-->
+<!--  Each item has attributes such as: overview, budget, runtime, popularity, and release date-->
 
 ---
 
@@ -120,19 +132,30 @@ The JOIN query used in this project: <!-- describe it in plain English -->
 
 | Operation | Route      | Description    |
 | --------- | ---------- | -------------- |
-| Create    | `/[route]` | [what it does] |
-| Read      | `/[route]` | [what it does] |
-| Update    | `/[route]` | [what it does] |
-| Delete    | `/[route]` | [what it does] |
+| Create    | `/add-movie` | adds movie to the database |
+| Read      | `/display-movies` | shows information about the desired moive(s) |
+| Update    | `/update-movie` | allows user to add information to the desired movie |
+| Delete    | `/delete-movie` | allows user to remove movie from database |
 
 ---
 
 ## Challenges and Insights
 
 <!-- What was the hardest part? What did you learn? Any interesting design decisions? -->
+<!-- If I'm being honest, the hardest part was finding time to work on the project, -->
+<!-- and figure out what I wanted to do with it. I ended up opting for a very simple product.-->
+<!-- I learned that its better to just do it instead of sitting and thinking about how to do it.-->
+<!-- I also learned more about html and bootstrap in getting the pages to work.-->
+<!-- And I decided to have some fun with the delete page. Because why not.-->
 
 ---
 
 ## AI Assistance
 
 <!-- List any AI tools you used (e.g., ChatGPT) and briefly describe what you used them for. Per course policy, AI use is allowed but must be cited in code comments and noted here. -->
+
+<!-- By each section that used an AI tool, I provided a description of what it did.-->
+<!-- I exclusively used GitHub's Copilot, easily accessible through VSCode. Some of my peers showed it to me and-->
+<!-- demonstrated it's utility. It was very quick and very efficient. If there was a function that I was unsure how to-->
+<!-- tackle, I would ask for guidance. Or if there was an error, I would ask if it saw some issue I missed.-->
+<!-- However, there were a few errors it was entirely unable to fix, or didn't know how to. AI is no panacea.-->
