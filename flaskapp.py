@@ -17,40 +17,58 @@ app.secret_key = 'your_secret_key' # this is an artifact for using flash display
 def home():
     return render_template('home.html')
 
-@app.route('/add-user', methods=['GET', 'POST'])
-def add_user():
+@app.route('/add-movie', methods=['GET', 'POST'])
+def add_movie():
     if request.method == 'POST':
         # Extract form data
-        name = request.form['name']
-        genre = request.form['genre']
+        title = request.form['title']
+        overview = request.form['overview']
         
         # Process the data (e.g., add it to a database)
         # For now, let's just print it to the console
-        print("Name:", name, ":", "Favorite Genre:", genre)
+        print("Title:", title, ":", "Overview:", overview)
         
-        flash('User added successfully! Huzzah!', 'success')  # 'success' is a category; makes a green banner at the top
+        flash('Movie added successfully! Huzzah!', 'success')  # 'success' is a category; makes a green banner at the top
         # Redirect to home page or another page upon successful submission
         return redirect(url_for('home'))
     else:
         # Render the form page if the request method is GET
-        return render_template('add_user.html')
+        return render_template('add_movie.html')
 
-@app.route('/delete-user',methods=['GET', 'POST'])
-def delete_user():
+@app.route('/delete-movie',methods=['GET', 'POST'])
+def delete_movie():
     if request.method == 'POST':
         # Extract form data
-        name = request.form['name']
+        title = request.form['title']
         
         # Process the data (e.g., add it to a database)
         # For now, let's just print it to the console
-        print("Name to delete:", name)
+        print("Title to delete:", title)
         
-        flash('User deleted successfully! Hoorah!', 'warning') 
+        flash('Movie deleted successfully! Hoorah!', 'warning') 
         # Redirect to home page or another page upon successful submission
         return redirect(url_for('home'))
     else:
         # Render the form page if the request method is GET
-        return render_template('delete_user.html')
+        return render_template('delete_movie.html')
+    
+@app.route('/update-movie', methods=['GET', 'POST'])
+def update_movie():
+    if request.method == 'POST':
+        # Extract form data
+        title = request.form['title']
+        new_overview = request.form['new_overview']
+        
+        # Process the data (e.g., add it to a database)
+        # For now, let's just print it to the console
+        print("Title to update:", title, "New Overview:", new_overview)
+        
+        flash('Movie updated successfully!', 'info') 
+        # Redirect to home page or another page upon successful submission
+        return redirect(url_for('home'))
+    else:
+        # Render the form page if the request method is GET
+        return render_template('update_movie.html')
 
 @app.route('/display-movies', methods=['GET', 'POST'])
 def display_movies():
