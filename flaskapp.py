@@ -78,6 +78,12 @@ def display_movies():
         query += " ORDER BY revenue DESC"
     elif display_field == 'runtime':
         query += " ORDER BY runtime DESC"
+    elif display_field == 'budget':
+        query += " ORDER BY budget DESC"
+    elif display_field == 'vote_average':
+        query += " ORDER BY vote_average DESC"
+    elif display_field == 'vote_count':
+        query += " ORDER BY vote_count DESC"
     else:  # default to title
         query += " ORDER BY title"
     
