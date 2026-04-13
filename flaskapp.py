@@ -53,13 +53,36 @@ def delete_user():
         return render_template('delete_user.html')
 
 
-@app.route('/display-users')
-def display_users():
-    # hard code a value to the users_list;
-    # note that this could have been a result from an SQL query :) 
-    #users_list = (('John','Doe','Comedy'),('Jane', 'Doe','Drama'))
-    movie_list = (dbCode.execute_query("SELECT * FROM movie"))
-    return render_template('display_users.html', users = movie_list)
+@app.route('/display-movies', methods=['GET', 'POST'])
+def display_movies():
+    search_term = request.args.get('search', '')
+    display_field = request.args.get('field', 'title')
+    
+    # Base query
+    query = "SELECT * FROM movie"
+    args = ()
+    
+    # Add search filter if search term provided
+    if search_term:
+        query += " WHERE title LIKE %s"
+        args = ('%' + search_term + '%',)
+    
+    # Add ordering based on selected field
+    if display_field == 'overview':
+        query += " ORDER BY overview"
+    elif display_field == 'popularity':
+        query += " ORDER BY popularity DESC"
+    elif display_field == 'release_date':
+        query += " ORDER BY release_date DESC"
+    elif display_field == 'revenue':
+        query += " ORDER BY revenue DESC"
+    elif display_field == 'runtime':
+        query += " ORDER BY runtime DESC"
+    else:  # default to title
+        query += " ORDER BY title"
+    
+    movie_list = dbCode.execute_query(query, args)
+    return render_template('display_movies.html', movies=movie_list, search_term=search_term, display_field=display_field)
 
 
 # these two lines of code should always be the last in the file

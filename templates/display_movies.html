@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Movies Database</title>
+    <!-- Bootstrap CSS for styling -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h2 class="mt-5">Movies Database</h2>
+        
+        <!-- Search and Filter Form -->
+        <form method="GET" class="mb-4">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="search">Search Movies:</label>
+                        <input type="text" class="form-control" id="search" name="search" 
+                               value="{{ search_term }}" placeholder="Enter movie title...">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="field">Sort by:</label>
+                        <select class="form-control" id="field" name="field">
+                            <option value="title" {% if display_field == 'title' %}selected{% endif %}>Title</option>
+                            <option value="overview" {% if display_field == 'overview' %}selected{% endif %}>Overview</option>
+                            <option value="popularity" {% if display_field == 'popularity' %}selected{% endif %}>Popularity</option>
+                            <option value="release_date" {% if display_field == 'release_date' %}selected{% endif %}>Release Date</option>
+                            <option value="revenue" {% if display_field == 'revenue' %}selected{% endif %}>Revenue</option>
+                            <option value="runtime" {% if display_field == 'runtime' %}selected{% endif %}>Runtime</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label>&nbsp;</label>
+                        <button type="submit" class="btn btn-primary btn-block">Search</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+        <!-- Results Count -->
+        <p class="mb-3">Found {{ movies|length }} movie{{ 's' if movies|length != 1 else '' }}</p>
+
+        <!-- Movies Table -->
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Title</th>
+                        <th>Overview</th>
+                        <th>Popularity</th>
+                        <th>Release Date</th>
+                        <th>Revenue</th>
+                        <th>Runtime</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for movie in movies %}
+                    <tr>
+                        <td>{{ movie.title or 'N/A' }}</td>
+                        <td>
+                            {% if movie.overview %}
+                                <span title="{{ movie.overview }}">{{ movie.overview|truncate(100) }}</span>
+                            {% else %}
+                                N/A
+                            {% endif %}
+                        </td>
+                        <td>{{ movie.popularity or 'N/A' }}</td>
+                        <td>{{ movie.release_date or 'N/A' }}</td>
+                        <td>
+                            {% if movie.revenue %}
+                                ${{ "{:,.0f}".format(movie.revenue) }}
+                            {% else %}
+                                N/A
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if movie.runtime %}
+                                {{ movie.runtime }} min
+                            {% else %}
+                                N/A
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Back to Home Button -->
+        <div class="mt-4">
+            <a href="/" class="btn btn-secondary">Back to Home</a>
+        </div>
+    </div>
+</body>
+</html>
