@@ -9,8 +9,8 @@
 ## Overview
 
 <!-- Describe your project in 2-4 sentences. What does it do? Who is it for? What problem does it solve? -->
-<!-- This project allows the user to access movies held within the Movies database hosted on my EC2 instance.-->
-<!-- In addition to looking up movies, it allows the user to add movies to the database and update their information.-->
+This project allows the user to access movies held within the Movies database hosted on my EC2 instance.
+In addition to looking up movies, it allows the user to add movies to the database and update their information.
 
 
 ---
@@ -105,7 +105,7 @@ db = "your-database-name"
 ### SQL (MySQL on RDS)
 
 <!-- Briefly describe your relational database schema. What tables do you have? What are the key relationships? -->
-<!-- The primary table within the movies database is movie. -->
+The primary table within the movies database is movie. 
 
 **Example:**
 
@@ -114,8 +114,8 @@ db = "your-database-name"
 - `language` — stores the different languages used and their codes; foreign key links to `movie_languages`
 
 The JOIN query used in this project: <!-- describe it in plain English -->
-<!-- I joined genre, to moive_genres, to moive. I also joined language, to movie_languages, to movie-->
-<!-- This allowed for the different functions to access genres and languages-->
+I joined genre, to moive_genres, to moive. I also joined language, to movie_languages, to movie
+This allowed for the different functions to access genres and languages
 
 ### DynamoDB
 
@@ -123,8 +123,8 @@ The JOIN query used in this project: <!-- describe it in plain English -->
 
 - **Table name:** `movie`
 - **Partition key:** `movie_id`
-- **Used for:** <!-- Returned the corresponding movie and it's information-->
-<!--  Each item has attributes such as: overview, budget, runtime, popularity, and release date-->
+- **Used for:** Returned the corresponding movie and it's information
+Each item has attributes such as: overview, budget, runtime, popularity, and release date
 
 ---
 
@@ -142,11 +142,11 @@ The JOIN query used in this project: <!-- describe it in plain English -->
 ## Challenges and Insights
 
 <!-- What was the hardest part? What did you learn? Any interesting design decisions? -->
-<!-- If I'm being honest, the hardest part was finding time to work on the project, -->
-<!-- and figure out what I wanted to do with it. I ended up opting for a very simple product.-->
-<!-- I learned that its better to just do it instead of sitting and thinking about how to do it.-->
-<!-- I also learned more about html and bootstrap in getting the pages to work.-->
-<!-- And I decided to have some fun with the delete page. Because why not.-->
+If I'm being honest, the hardest part was finding time to work on the project,
+and figure out what I wanted to do with it. I ended up opting for a very simple product.
+I learned that its better to just do it instead of sitting and thinking about how to do it.
+I also learned more about html and bootstrap in getting the pages to work.
+And I decided to have some fun with the delete page. Because why not.
 
 ---
 
@@ -155,7 +155,7 @@ The JOIN query used in this project: <!-- describe it in plain English -->
 <!-- List any AI tools you used (e.g., ChatGPT) and briefly describe what you used them for. Per course policy, AI use is allowed but must be cited in code comments and noted here. -->
 
 <!-- By each section that used an AI tool, I provided a description of what it did.-->
-<!-- I exclusively used GitHub's Copilot, easily accessible through VSCode. Some of my peers showed it to me and-->
-<!-- demonstrated it's utility. It was very quick and very efficient. If there was a function that I was unsure how to-->
-<!-- tackle, I would ask for guidance. Or if there was an error, I would ask if it saw some issue I missed.-->
-<!-- However, there were a few errors it was entirely unable to fix, or didn't know how to. AI is no panacea.-->
+I exclusively used GitHub's Copilot, easily accessible through VSCode. Some of my peers showed it to me and 
+demonstrated it's utility. It was very quick and very efficient. If there was a function that I was unsure how to
+tackle, I would ask for guidance. Or if there was an error, I would ask if it saw some issue I missed.
+However, there were a few errors it was entirely unable to fix, or didn't know how to. AI is no panacea.
