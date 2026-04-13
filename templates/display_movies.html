@@ -33,8 +33,6 @@
                             <option value="revenue" {% if display_field == 'revenue' %}selected{% endif %}>Revenue</option>
                             <option value="runtime" {% if display_field == 'runtime' %}selected{% endif %}>Runtime</option>
                             <option value="budget" {% if display_field == 'budget' %}selected{% endif %}>Budget</option>
-                            <option value="vote_average" {% if display_field == 'vote_average' %}selected{% endif %}>Vote Average</option>
-                            <option value="vote_count" {% if display_field == 'vote_count' %}selected{% endif %}>Vote Count</option>
                         </select>
                     </div>
                 </div>
@@ -62,13 +60,13 @@
                     <tr>
                         <th>Title</th>
                         <th>Overview</th>
+                        <th>Genres</th>
+                        <th>Languages</th>
                         <th>Popularity</th>
                         <th>Release Date</th>
                         <th>Revenue</th>
                         <th>Runtime</th>
                         <th>Budget</th>
-                        <th>Vote Average</th>
-                        <th>Vote Count</th>
                         <th>Status</th>
                     </tr>
                 </thead>
@@ -83,6 +81,8 @@
                                 N/A
                             {% endif %}
                         </td>
+                        <td>{{ movie.genres or 'N/A' }}</td>
+                        <td>{{ movie.languages or 'N/A' }}</td>
                         <td>{{ "%.2f"|format(movie.popularity) if movie.popularity else 'N/A' }}</td>
                         <td>{{ movie.release_date or 'N/A' }}</td>
                         <td>
@@ -106,8 +106,6 @@
                                 N/A
                             {% endif %}
                         </td>
-                        <td>{{ "%.1f"|format(movie.vote_average) if movie.vote_average else 'N/A' }}</td>
-                        <td>{{ movie.vote_count or 'N/A' }}</td>
                         <td>{{ movie.movie_status or 'N/A' }}</td>
                     </tr>
                     {% endfor %}

@@ -72,10 +72,6 @@ def update_movie():
             updates['runtime'] = request.form['runtime']
         if request.form.get('budget'):
             updates['budget'] = request.form['budget']
-        if request.form.get('vote_average'):
-            updates['vote_average'] = request.form['vote_average']
-        if request.form.get('vote_count'):
-            updates['vote_count'] = request.form['vote_count']
         if request.form.get('movie_status'):
             updates['movie_status'] = request.form['movie_status']
         
@@ -106,34 +102,43 @@ def display_movies():
     if not search_term:
         movie_list = []
     else:
-        # Base query
-        query = "SELECT * FROM movie"
+        # Base query with joins for genres and languages
+        # Display generated with help from VSCode's copilot
+        query = """
+        SELECT m.*,
+               GROUP_CONCAT(DISTINCT g.genre_name ORDER BY g.genre_name) as genres,
+               GROUP_CONCAT(DISTINCT l.language_name ORDER BY l.language_name) as languages
+        FROM movie m
+        LEFT JOIN movie_genres mg ON m.movie_id = mg.movie_id
+        LEFT JOIN genre g ON mg.genre_id = g.genre_id
+        LEFT JOIN movie_languages ml ON m.movie_id = ml.movie_id
+        LEFT JOIN language l ON ml.language_id = l.language_id
+        """
         args = ()
         
         # Add search filter if search term provided
         if search_term:
-            query += " WHERE title LIKE %s"
+            query += " WHERE m.title LIKE %s"
             args = ('%' + search_term + '%',)
+        
+        # Add GROUP BY
+        query += " GROUP BY m.movie_id"
         
         # Add ordering based on selected field
         if display_field == 'overview':
-            query += " ORDER BY overview"
+            query += " ORDER BY m.overview"
         elif display_field == 'popularity':
-            query += " ORDER BY popularity DESC"
+            query += " ORDER BY m.popularity DESC"
         elif display_field == 'release_date':
-            query += " ORDER BY release_date DESC"
+            query += " ORDER BY m.release_date DESC"
         elif display_field == 'revenue':
-            query += " ORDER BY revenue DESC"
+            query += " ORDER BY m.revenue DESC"
         elif display_field == 'runtime':
-            query += " ORDER BY runtime DESC"
+            query += " ORDER BY m.runtime DESC"
         elif display_field == 'budget':
-            query += " ORDER BY budget DESC"
-        elif display_field == 'vote_average':
-            query += " ORDER BY vote_average DESC"
-        elif display_field == 'vote_count':
-            query += " ORDER BY vote_count DESC"
+            query += " ORDER BY m.budget DESC"
         else:  # default to title
-            query += " ORDER BY title"
+            query += " ORDER BY m.title"
         
         movie_list = dbCode.execute_query(query, args)
     
