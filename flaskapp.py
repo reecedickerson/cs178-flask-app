@@ -64,6 +64,10 @@ def update_movie():
             updates['overview'] = request.form['overview']
         if request.form.get('popularity'):
             updates['popularity'] = request.form['popularity']
+        if request.form.get('genres'):
+            updates['genres'] = request.form['genres']
+        if request.form.get('languages'):
+            updates['languages'] = request.form['languages']
         if request.form.get('release_date'):
             updates['release_date'] = request.form['release_date']
         if request.form.get('revenue'):
