@@ -51,6 +51,7 @@ def delete_movie():
         # Render the form page if the request method is GET
         return render_template('delete_movie.html')
     
+# Function generated with help from VSCode's copilot
 @app.route('/update-movie', methods=['GET', 'POST'])
 def update_movie():
     if request.method == 'POST':
