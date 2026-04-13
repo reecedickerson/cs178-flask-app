@@ -9,7 +9,7 @@
     <!-- Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body>
+<body style="background-color:rgb(44, 174, 59)">
     <!-- display a flash message here, if necessary -->
     {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
@@ -22,7 +22,7 @@
     {% endwith %}
     <div class="container">
         <img src="{{ url_for('static', filename='camera.png') }}" alt="Camera Icon" class="img-fluid" style="max-width: 250px; margin-top: 20px;">
-        <h1 class="mt-5">Movies Database</h1>
+        <h1 class="mt-5">Movies Database Project</h1>
         <div class="mt-3">
             <!-- Add Movie Button -->
             <a href="/add-movie" class="btn btn-primary">Add Movie</a>
