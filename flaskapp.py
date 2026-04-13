@@ -54,7 +54,7 @@ def delete_movie():
         # Now delete the movie
         dbCode.execute_delete("DELETE FROM movie WHERE movie_id = %s", (movie_id,))
         
-        flash('Movie deleted successfully!', 'success') 
+        flash('Erasure attempted. Check to see if it is still there!', 'warning') 
         # Redirect to home page or another page upon successful submission
         return redirect(url_for('home'))
     else:
@@ -110,7 +110,7 @@ def update_movie():
             
             dbCode.execute_update(query, tuple(args))
         
-        flash('Erasure attempted. Check to see if it is still there!', 'caution')
+        flash('Movie updated successfully!', 'success')
         # Redirect to home page or another page upon successful submission
         return redirect(url_for('home'))
     else:
