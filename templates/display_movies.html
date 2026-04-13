@@ -1,3 +1,5 @@
+# VSCode's built in copilot helped me with this page.
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -45,9 +47,14 @@
         </form>
 
         <!-- Results Count -->
-        <p class="mb-3">Found {{ movies|length }} movie{{ 's' if movies|length != 1 else '' }}</p>
+        {% if search_term %}
+            <p class="mb-3">Found {{ movies|length }} movie{{ 's' if movies|length != 1 else '' }} matching "{{ search_term }}"</p>
+        {% else %}
+            <p class="mb-3 text-muted">Enter a movie title above to search the database</p>
+        {% endif %}
 
         <!-- Movies Table -->
+        {% if movies %}
         <div class="table-responsive">
             <table class="table table-bordered table-striped">
                 <thead class="thead-dark">
@@ -106,6 +113,7 @@
                 </tbody>
             </table>
         </div>
+        {% endif %}
 
         <!-- Back to Home Button -->
         <div class="mt-4">

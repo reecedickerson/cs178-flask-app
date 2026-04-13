@@ -52,42 +52,41 @@ def delete_user():
         # Render the form page if the request method is GET
         return render_template('delete_user.html')
 
-
 @app.route('/display-movies', methods=['GET', 'POST'])
 def display_movies():
     search_term = request.args.get('search', '')
     display_field = request.args.get('field', 'title')
     
-    # Base query
-    query = "SELECT * FROM movie"
-    args = ()
+    # Only show movies if there's a search term
+    if not search_term:
+        movie_list = []
+    else:
+        # Base query with exact title matching (case-insensitive)
+        query = "SELECT * FROM movie WHERE LOWER(title) = LOWER(%s)"
+        args = (search_term,)
+        
+        # Add ordering based on selected field
+        if display_field == 'overview':
+            query += " ORDER BY overview"
+        elif display_field == 'popularity':
+            query += " ORDER BY popularity DESC"
+        elif display_field == 'release_date':
+            query += " ORDER BY release_date DESC"
+        elif display_field == 'revenue':
+            query += " ORDER BY revenue DESC"
+        elif display_field == 'runtime':
+            query += " ORDER BY runtime DESC"
+        elif display_field == 'budget':
+            query += " ORDER BY budget DESC"
+        elif display_field == 'vote_average':
+            query += " ORDER BY vote_average DESC"
+        elif display_field == 'vote_count':
+            query += " ORDER BY vote_count DESC"
+        else:  # default to title
+            query += " ORDER BY title"
+        
+        movie_list = dbCode.execute_query(query, args)
     
-    # Add search filter if search term provided
-    if search_term:
-        query += " WHERE title LIKE %s"
-        args = ('%' + search_term + '%',)
-    
-    # Add ordering based on selected field
-    if display_field == 'overview':
-        query += " ORDER BY overview"
-    elif display_field == 'popularity':
-        query += " ORDER BY popularity DESC"
-    elif display_field == 'release_date':
-        query += " ORDER BY release_date DESC"
-    elif display_field == 'revenue':
-        query += " ORDER BY revenue DESC"
-    elif display_field == 'runtime':
-        query += " ORDER BY runtime DESC"
-    elif display_field == 'budget':
-        query += " ORDER BY budget DESC"
-    elif display_field == 'vote_average':
-        query += " ORDER BY vote_average DESC"
-    elif display_field == 'vote_count':
-        query += " ORDER BY vote_count DESC"
-    else:  # default to title
-        query += " ORDER BY title"
-    
-    movie_list = dbCode.execute_query(query, args)
     return render_template('display_movies.html', movies=movie_list, search_term=search_term, display_field=display_field)
 
 
