@@ -41,9 +41,8 @@ def delete_movie():
         # Extract form data
         title = request.form['title']
         
-        # Process the data (e.g., add it to a database)
-        # For now, let's just print it to the console
-        print("Title to delete:", title)
+        query = "DELETE FROM movie WHERE title = %s"
+        dbCode.execute_delete(query, (title))
         
         flash('Movie deleted successfully! Hoorah!', 'warning') 
         # Redirect to home page or another page upon successful submission

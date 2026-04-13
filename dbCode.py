@@ -32,3 +32,12 @@ def execute_insert(query, args=()):
     conn.commit()
     cur.close()
     conn.close()
+
+def execute_delete(query, args=()):
+    """Executes a DELETE query and commits the changes."""
+    conn = get_conn()
+    cur = conn.cursor()
+    cur.execute(query, args)
+    conn.commit()
+    cur.close()
+    conn.close()

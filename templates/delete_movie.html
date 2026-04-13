@@ -4,11 +4,26 @@
     <title>Delete Movie</title>
   </head>
   <body style="background-color:rgb(165, 56, 56)">
-    <h1>Delete Movie</h1>
-    <form action="{{ url_for('delete_movie') }}" method="post">
-      <label for="title">Title:</label><br />
-      <input type="text" id="title" name="title" required /><br />
-      <input type="submit" value="Submit" />
-    </form>
+    <div class="container">
+        <h2 class="mt-5">Sacrifice A Movie...</h2>
+
+        <!-- Add Movie Form -->
+        <form action="{{ url_for('delete_movie') }}" method="post" class="mb-4">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="title">Movie Title:</label>
+                        <input type="text" class="form-control" id="title" name="title"
+                               placeholder="Verbatim e.g. 'TRON: Legacy'" required>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-danger">Delete Movie</button>
+                <a href="/" class="btn btn-secondary ml-2">Back to Home</a>
+            </div>
+        </form>
+    </div>
+    <img src="{{ url_for('static', filename='fire.png') }}" alt="Flames" >
   </body>
 </html>
