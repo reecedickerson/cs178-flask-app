@@ -41,10 +41,20 @@ def delete_movie():
         # Extract form data
         title = request.form['title']
         
-        query = "DELETE FROM movie WHERE title = %s"
-        dbCode.execute_delete(query, (title))
+        # Get movie_id first
+        movie_id = dbCode.get_movie_id_by_title(title)
+        if not movie_id:
+            flash('Movie not found with that title.', 'danger')
+            return redirect(url_for('home'))
         
-        flash('Sacrifice attempted! Check to see if it worked.', 'warning') 
+        # Delete related records first (due to foreign key constraints)
+        dbCode.execute_delete("DELETE FROM movie_genres WHERE movie_id = %s", (movie_id,))
+        dbCode.execute_delete("DELETE FROM movie_languages WHERE movie_id = %s", (movie_id,))
+        
+        # Now delete the movie
+        dbCode.execute_delete("DELETE FROM movie WHERE movie_id = %s", (movie_id,))
+        
+        flash('Movie deleted successfully!', 'success') 
         # Redirect to home page or another page upon successful submission
         return redirect(url_for('home'))
     else:
