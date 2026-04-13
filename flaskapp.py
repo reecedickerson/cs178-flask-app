@@ -61,9 +61,14 @@ def display_movies():
     if not search_term:
         movie_list = []
     else:
-        # Base query with exact title matching (case-insensitive)
-        query = "SELECT * FROM movie WHERE LOWER(title) = LOWER(%s)"
-        args = (search_term,)
+        # Base query
+        query = "SELECT * FROM movie"
+        args = ()
+        
+        # Add search filter if search term provided
+        if search_term:
+            query += " WHERE title LIKE %s"
+            args = ('%' + search_term + '%',)
         
         # Add ordering based on selected field
         if display_field == 'overview':
