@@ -24,9 +24,9 @@ def add_movie():
         title = request.form['title']
         overview = request.form['overview']
         
-        # Process the data (e.g., add it to a database)
-        # For now, let's just print it to the console
-        print("Title:", title, ":", "Overview:", overview)
+        # lines added with help of VSCode's copilot
+        query = "INSERT INTO movie (title, overview) VALUES (%s, %s)"
+        dbCode.execute_insert(query, (title, overview))
         
         flash('Movie added successfully! Huzzah!', 'success')  # 'success' is a category; makes a green banner at the top
         # Redirect to home page or another page upon successful submission

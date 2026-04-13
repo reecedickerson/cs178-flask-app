@@ -22,3 +22,13 @@ def execute_query(query, args=()):
     rows = cur.fetchall()
     cur.close()
     return rows
+
+# Function added with help from VSCode's copilot
+def execute_insert(query, args=()):
+    """Executes an INSERT query and commits the changes."""
+    conn = get_conn()
+    cur = conn.cursor()
+    cur.execute(query, args)
+    conn.commit()
+    cur.close()
+    conn.close()
