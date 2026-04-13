@@ -58,16 +58,18 @@ def update_movie():
         # Extract form data
         title = request.form['title']
         
-        # Collect all optional fields that were provided
+        # Get movie_id first
+        movie_id = dbCode.get_movie_id_by_title(title)
+        if not movie_id:
+            flash('Movie not found with that title.', 'danger')
+            return redirect(url_for('home'))
+        
+        # Collect all optional fields that were provided (excluding genres and languages)
         updates = {}
         if request.form.get('overview'):
             updates['overview'] = request.form['overview']
         if request.form.get('popularity'):
             updates['popularity'] = request.form['popularity']
-        if request.form.get('genres'):
-            updates['genres'] = request.form['genres']
-        if request.form.get('languages'):
-            updates['languages'] = request.form['languages']
         if request.form.get('release_date'):
             updates['release_date'] = request.form['release_date']
         if request.form.get('revenue'):
@@ -79,18 +81,26 @@ def update_movie():
         if request.form.get('movie_status'):
             updates['movie_status'] = request.form['movie_status']
         
-        # Only update if at least one field was provided
+        # Handle genres separately
+        if request.form.get('genres'):
+            genre_names = [g.strip() for g in request.form['genres'].split(',') if g.strip()]
+            dbCode.update_movie_genres(movie_id, genre_names)
+        
+        # Handle languages separately
+        if request.form.get('languages'):
+            language_names = [l.strip() for l in request.form['languages'].split(',') if l.strip()]
+            dbCode.update_movie_languages(movie_id, language_names)
+        
+        # Only update movie table if at least one field was provided
         if updates:
             # Build dynamic UPDATE query
             set_clause = ', '.join([f"{key} = %s" for key in updates.keys()])
-            query = f"UPDATE movie SET {set_clause} WHERE title = %s"
-            args = list(updates.values()) + [title]
+            query = f"UPDATE movie SET {set_clause} WHERE movie_id = %s"
+            args = list(updates.values()) + [movie_id]
             
             dbCode.execute_update(query, tuple(args))
-            flash('Movie updated successfully!', 'info')
-        else:
-            flash('Please provide at least one field to update.', 'warning')
         
+        flash('Movie updated successfully!', 'info')
         # Redirect to home page or another page upon successful submission
         return redirect(url_for('home'))
     else:
