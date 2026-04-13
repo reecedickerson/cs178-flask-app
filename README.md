@@ -105,7 +105,8 @@ db = "your-database-name"
 ### SQL (MySQL on RDS)
 
 <!-- Briefly describe your relational database schema. What tables do you have? What are the key relationships? -->
-The primary table within the movies database is movie. 
+The primary table within the movies database is movie. Other tables used from the database are genre, movie_genres, language, and movie_languages.
+Genre would join to movie_genres, which would join to moive.
 
 **Example:**
 
